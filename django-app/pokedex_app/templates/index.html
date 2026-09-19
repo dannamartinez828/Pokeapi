@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokedex</title>
+</head>
+<body>
+    <h1>Pokedex</h1>
+    <form method="post" action="{% url 'consultar' %}">
+        {% csrf_token %}
+        <input type="text" name="nombre" placeholder="Nombre del pokemon" value="{{ nombre|default:'' }}">
+        <button type="submit">Consultar base de datos</button>
+    </form>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    {% if pokemon %}
+        <h2>{{ pokemon.nombre }}</h2>
+        <img src="{{ pokemon.imagen }}" width="150">
+        <p>Altura: {{ pokemon.altura }} m</p>
+        <p>Peso: {{ pokemon.peso }} kg</p>
+        <p>Ataques: {{ pokemon.ataque1 }}, {{ pokemon.ataque2 }}</p>
+    {% endif %}
+</body>
+</html>
