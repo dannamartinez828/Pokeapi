@@ -23,6 +23,15 @@ const swaggerSpec = swaggerJsdoc({
 });
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.get('/', async (req, res) => {
+  try {
+    await pool.query('SELECT 1');
+    res.send('Conectado a la base de datos');
+  } catch (err) {
+    res.status(500).send('Error de conexión a la base de datos');
+  }
+});
+
 /**
  * @swagger
  * /api/pokemones:
