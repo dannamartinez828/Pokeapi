@@ -1,0 +1,3 @@
+https://pokedex-microservicio.onrender.com/api/pokemones
+https://pokedex-microservicio.onrender.com/api-docs
+https://pokedex-microservicio.onrender.com/
