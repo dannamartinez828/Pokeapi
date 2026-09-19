@@ -66,5 +66,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # URL del microservicio Node.js (que sí consulta Neon)
-MICROSERVICIO_URL = 'http://localhost:3000/api/pokemones'
-# En producción: 'https://pokedex-microservicio.onrender.com/api/pokemones'
+MICROSERVICIO_URL = 'https://pokedex-microservicio.onrender.com/api/pokemones'

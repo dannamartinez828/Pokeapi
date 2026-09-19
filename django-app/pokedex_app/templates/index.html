@@ -2,31 +2,103 @@
 <html>
 <head>
     <title>Pokedex</title>
+    <style>
+        body {
+            font-family: Calibri, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+            background: #f5f5f5;
+        }
+        h1 { margin-bottom: 20px; }
+        form {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        input[type="text"] {
+            padding: 6px;
+            font-size: 16px;
+        }
+        button {
+            padding: 6px 12px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .error {
+            color: #b00020;
+            margin-top: 10px;
+        }
+        .card {
+            margin-top: 25px;
+            width: 320px;
+            border: 2px solid #1a1a2e;
+            border-radius: 6px;
+            background: white;
+            overflow: hidden;
+        }
+        .card-imagen {
+            background: #22d3ee;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .card-imagen img {
+            width: 160px;
+            height: 160px;
+            background: white;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        .card-nombre {
+            border-top: 2px solid #1a1a2e;
+            border-bottom: 2px solid #1a1a2e;
+            text-align: center;
+            padding: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+        .card-datos {
+            padding: 12px 16px;
+        }
+        .card-datos p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+        .card-datos span {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <h1>Pokedex</h1>
+
     <form method="post" action="{% url 'consultar' %}">
         {% csrf_token %}
         <input type="text" name="nombre" placeholder="Nombre del pokemon" value="{{ nombre|default:'' }}">
-        <button type="submit">Consultar base de datos (microservicio)</button>
-    </form>
-
-    <form method="post" action="{% url 'consultar_local' %}">
-        {% csrf_token %}
-        <input type="text" name="nombre" placeholder="Nombre del pokemon" value="{{ nombre|default:'' }}">
-        <button type="submit">Consultar base de datos local</button>
+        <button type="submit" name="origen" value="microservicio">Consultar base de datos (microservicio)</button>
+        <button type="submit" name="origen" value="local">Consultar base de datos local</button>
     </form>
 
     {% if error %}
-        <p>{{ error }}</p>
+        <p class="error">{{ error }}</p>
     {% endif %}
 
     {% if pokemon %}
-        <h2>{{ pokemon.nombre }}</h2>
-        <img src="{{ pokemon.imagen }}" width="150">
-        <p>Altura: {{ pokemon.altura }} m</p>
-        <p>Peso: {{ pokemon.peso }} kg</p>
-        <p>Ataques: {{ pokemon.ataque1 }}, {{ pokemon.ataque2 }}</p>
+        <div class="card">
+            <div class="card-imagen">
+                <img src="{{ pokemon.imagen }}" alt="{{ pokemon.nombre }}">
+            </div>
+            <div class="card-nombre">{{ pokemon.nombre }}</div>
+            <div class="card-datos">
+                <p><span>Altura:</span> {{ pokemon.altura }} m</p>
+                <p><span>Peso:</span> {{ pokemon.peso }} kg</p>
+                <p><span>Ataques:</span> {{ pokemon.ataque1 }}, {{ pokemon.ataque2 }}</p>
+            </div>
+        </div>
     {% endif %}
 </body>
 </html>
